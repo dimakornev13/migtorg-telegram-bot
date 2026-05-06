@@ -155,11 +155,12 @@ final class BotsManager
         $config = $this->getBotConfig($name);
 
         $token = data_get($config, 'token');
+        $handler = $this->getConfig('http_client_handler', null);
 
         $telegram = new Api(
             $token,
             $this->getConfig('async_requests', false),
-            $this->getConfig('http_client_handler', null),
+            $handler ? app($handler) : null,
             $this->getConfig('base_bot_url', null)
         );
 
